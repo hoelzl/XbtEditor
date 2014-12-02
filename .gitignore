@@ -26,3 +26,8 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# Ignore some IntelliJ configuration files
+.idea/*.iws
+.idea/workspace.xml
+.idea/tasks.xml

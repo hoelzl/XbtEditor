@@ -1,0 +1,118 @@
+﻿<!--suppress XmlDuplicatedId -->
+<html ng-app="draw2dApp">
+<head>
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <!-- The following stylesheet is generated from the less input.
+         The IntelliJ is set up to do this automatically, otherwise you
+          need to manually compile it or set up a grunt tasek, etc.
+         -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="css/contextmenu.css"/>
+
+    <script src="lib/shifty.js"></script>
+    <script src="lib/raphael.js"></script>
+    <script src="lib/jquery-1.11.1.min.js"></script>
+    <script src="lib/jquery.autoresize.js"></script>
+    <script src="lib/jquery.contextmenu.js"></script>
+    <script src="lib/rgbcolor.js"></script>
+    <script src="lib/canvg.js"></script>
+    <script src="lib/Class.js"></script>
+    <script src="lib/json2.js"></script>
+    <script src="lib/pathfinding-browser.min.js"></script>
+
+    <script src="lib/draw2d.js"></script>
+</head>
+
+
+<body id="container" ng-controller="EditorController">
+
+<div id="logo">XBT Editor</div>
+<div id="toolbar" class="navbar-default">
+    <button class="btn btn-lg btn-primary"
+            ng-click="editor.fileOpen()">Open
+    </button>
+    <div class="btn-group">
+        <button class="btn btn-lg btn-default"
+                ng-disabled="!editor.state.canUndo"
+                ng-click="editor.undo()">Undo
+        </button>
+        <button class="btn btn-lg btn-default"
+                ng-disabled="!editor.state.canRedo"
+                ng-click="editor.redo()">Redo
+        </button>
+        <button class="btn btn-lg btn-default"
+                ng-disabled="editor.selection.figure==null"
+                ng-click="editor.delete()">Delete
+        </button>
+    </div>
+</div>
+
+
+<div id="propertyPane">
+    <div id="propertyHeader" class="highlight panetitle blackgradient">
+        {{editor.selectionType() || "No active node"}}
+    </div>
+    <div id="properties" ng-switch on="editor.selection.className">
+
+        <div>
+            <!--
+            <div class="panel panel-default">
+                <div class="panel-heading">Node Type</div>
+                <div class="panel-body">{{editor.selectionType()}}</div>
+            </div>
+            -->
+            <div class="panel panel-default">
+                <div class="panel-heading">Position</div>
+                <div class="panel-body" id="position_panel">
+                    <div class="form-group">
+                        <label for="x-input">x:</label>
+                        <input id="x-input"
+                               class="form-control" type="number"
+                               ng-model="editor.selection.attr.x"><br>
+                        <label for="y-input">y:</label>
+                        <input id="y-input"
+                               class="form-control" type="number"
+                               ng-model="editor.selection.attr.y">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="palettePane" draw2d-palette>
+</div>
+
+<div id="canvas" draw2d-canvas>
+</div>
+
+
+</body>
+
+<!-- common libs -->
+<script src="lib/angular.min.js"></script>
+<script src="lib/jquery.browser.js"></script>
+<script src="lib/jquery-ui-1.8.23.custom.min.js"></script>
+<script src="lib/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+<!-- draw2d directrives. Possibly belongs in the future to Draw2d -->
+<script src="src/directrives/draw2d.js"></script>
+<script src="src/directrives/canvas.js"></script>
+<script src="src/directrives/palette.js"></script>
+
+<!-- appliction specific coding -->
+<script src="src/app.js"></script>
+<script src="src/model/NodeTypes.js"></script>
+<script src="src/factories/DemoData.js"></script>
+<script src="src/factories/FileFactory.js"></script>
+<script src="src/controllers/EditorController.js"></script>
+<script src="src/controllers/FileOpenController.js"></script>
+
+
+</html>
